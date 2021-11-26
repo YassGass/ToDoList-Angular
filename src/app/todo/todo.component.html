@@ -1,0 +1,29 @@
+<h1>Liste des tâches à réaliser</h1>
+<p>nous sommes le {{ today | date:'dd/MM/yyyy' }}</p><!--formation du pipe avec date-->
+<ul class="list-group">
+  <!--<li class="list-group-item">{{todo1}}</li> les donnée dynamiques a partir des variables
+  <li class="list-group-item">{{todo2}}</li>
+  <li class="list-group-item">{{todo3}}</li>
+  <li class="list-group-item">{{todo4}}</li>-->
+  <li class="list-group-item" *ngFor="let todo of todos , let i = index">
+    <div [ngClass]="{encours:todo.todoStatus, terminer:!todo.todoStatus}">
+      <img [src]="todo.image" > <!-- property biding -->
+
+      {{todo.todoName}}
+
+      <button class="btn btn-primary" [disabled]="todo.todoStatus" (click)="onChangeStatus(i)">En cours</button> <!-- event biding-->
+
+      <button class="btn btn-outline-success" [disabled]="!todo.todoStatus" (click)="onChangeStatus(i)">Terminer</button>
+
+      <button class="btn btn-warning" (click)="onChangeModif(i)" *ngIf="!todo.isModif">modifier</button> <!-- two way biding -->
+
+      <button class="btn btn-outline-success" (click)="onChangeModif(i)" *ngIf="todo.isModif">modification terminer</button><!-- two way biding -->
+
+      <button class="btn btn-outline-success" (click)="onView(i)">en savoir plus</button><!-- two way biding -->
+
+
+      <input *ngIf="todo.isModif" class="form-control" [(ngModel)]="todo.todoName"  /> <!-- two way biding -->
+
+    </div>
+  </li>
+</ul>
